@@ -1,0 +1,26 @@
+launching an application on tomcat server
+pre-requisites
+  java
+.  take an instance instance java,git, maven
+  using apt install ubuntu (or) yum install linux
+.  after installing all the tools in to your local machine. use git clone to clone the src(source code) from remote repo to local repo
+.  go the repo using cd repo name then go to the broswer type apache.org click on downloads click distributions
+  * scroll down and find tomcat and click on it
+  * click on tomcat- 9
+  * click on v 9.0.96
+  * click on bin
+  * poin the crusor on apache-tomcat-9.0.96.tar.gz give left click and copy link
+.  now come to the instance and use the command wget apache-tomcat-9.0.96.tar.gz to downlaod the file
+.  give the command tar -zxvf apache-tomcat-9.0.96.tar.gz  to untar the file and move to tar file using cd command
+.  now go instance dashboard of aws and add 8080 port number in inbond rules of the security group
+.  coming back to instance use sh or ./ startup.sh command to start apache tomcat
+.  after tomcat open click on manger app you will be navigate to a page which shows a 403 error
+.  come to the instance from repo directory enter cd /webapps/manger/META-INF/ command after that vi conetxt.xml
+.  context.xml file will open in vi editor there in the file allow ".*" /> just need replace all content with .* and save file using :wq! 
+.  come back to the apache directory now used the command cd conf to move to conf directory vi tomcat-user.xml
+.  change the role name as manager-gui manger-script and password as tomcat123 and also roles="manager-gui, manger-script"/>
+.  finally go bin directory and run the tomcat again using ./start.sh command
+.  now refresh the tomcat server tab give the username and password to enter into mangerapp
+.  coming back to the instance and go to project dir and use the command mvn clear package to build the code
+.  now use the command scp /root/project1/target/myweb-8.6.2.war /root/project1/apache-tomcat-9.0.96/webapps
+now the application is deployed to the servers manually if there is any changes we have to do all the process again to reduces manual efffect we use CI/CD piplines
